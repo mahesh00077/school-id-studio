@@ -6,18 +6,10 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useSession } from "@/hooks/useSession";
 import { cn } from "@/lib/utils";
-import { ROLE_LABELS, initials } from "@/utils/format";
+import { initials } from "@/utils/format";
 import type { NavItem } from "./nav-config";
-import type { Role } from "@/types";
 
 interface PortalLayoutProps {
   title: string;
@@ -26,7 +18,7 @@ interface PortalLayoutProps {
 }
 
 export function PortalLayout({ title, nav, children }: PortalLayoutProps) {
-  const { user, setRole } = useSession();
+  const { user } = useSession();
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
@@ -34,7 +26,7 @@ export function PortalLayout({ title, nav, children }: PortalLayoutProps) {
     setOpen(false);
   }, [pathname]);
 
-  const visibleNav = nav.filter((item) => item.roles.includes(user.role));
+  const visibleNav = nav;
 
   return (
     <div className="min-h-screen bg-background">
@@ -122,20 +114,9 @@ export function PortalLayout({ title, nav, children }: PortalLayoutProps) {
           </div>
 
           <div className="ml-auto flex items-center gap-2 sm:gap-3">
-            <Badge variant="secondary" className="hidden sm:inline-flex">
-              {ROLE_LABELS[user.role]}
+            <Badge variant="outline" className="border-amber-300 bg-amber-50 text-amber-900">
+              Authentication is not implemented yet
             </Badge>
-            <Separator orientation="vertical" className="hidden h-6 sm:block" />
-            <Select value={user.role} onValueChange={(v) => setRole(v as Role)}>
-              <SelectTrigger className="h-9 w-[150px]" aria-label="Preview role">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="OWNER">Owner</SelectItem>
-                <SelectItem value="SCHOOL_ADMIN">School Admin</SelectItem>
-                <SelectItem value="SCHOOL_STAFF">School Staff</SelectItem>
-              </SelectContent>
-            </Select>
           </div>
         </header>
 
