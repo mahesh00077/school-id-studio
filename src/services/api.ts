@@ -29,10 +29,10 @@ type Query = Record<string, string | number | boolean | undefined | null>;
 
 export interface RequestOptions {
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-  body?: unknown;
-  query?: Query;
-  signal?: AbortSignal;
-  headers?: Record<string, string>;
+  body?: unknown | undefined;
+  query?: Query | undefined;
+  signal?: AbortSignal | undefined;
+  headers?: Record<string, string> | undefined;
 }
 
 function buildUrl(path: string, query?: Query): string {
@@ -66,7 +66,7 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
   const response = await fetch(buildUrl(path, query), {
     method,
     credentials: "include",
-    signal,
+    ...(signal ? { signal } : {}),
     headers: {
       Accept: "application/json",
       ...(body !== undefined ? { "Content-Type": "application/json" } : {}),
