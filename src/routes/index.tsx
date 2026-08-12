@@ -1,24 +1,76 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
+import { Building2, IdCard, ShieldCheck } from "lucide-react";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+
+const TITLE = "IDSuite — School Photo ID Card Management System";
+const DESCRIPTION =
+  "Manage schools, users, credits and card designs, and generate student photo ID cards from one lightweight admin platform.";
+
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: TITLE },
+      { name: "description", content: DESCRIPTION },
+      { property: "og:title", content: TITLE },
+      { property: "og:description", content: DESCRIPTION },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main className="flex min-h-screen items-center justify-center bg-muted/40 px-4 py-16">
+      <div className="w-full max-w-3xl">
+        <div className="mb-8 text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
+            <ShieldCheck className="size-3.5 text-primary" />
+            Frontend foundation · FastAPI backend coming next
+          </span>
+          <h1 className="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
+            School Photo ID Card Management System
+          </h1>
+          <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground">
+            {DESCRIPTION}
+          </p>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Card>
+            <CardContent className="p-6">
+              <Building2 className="size-5 text-primary" />
+              <h2 className="mt-3 text-base font-semibold">Owner portal</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Schools, users, designs, credits, history and platform settings.
+              </p>
+              <Button asChild className="mt-4 w-full">
+                <Link to="/owner/dashboard">Open owner portal</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-6">
+              <IdCard className="size-5 text-primary" />
+              <h2 className="mt-3 text-base font-semibold">School portal</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Credits, assigned designs, ID card generation and history.
+              </p>
+              <Button asChild className="mt-4 w-full">
+                <Link to="/school/dashboard">Open school portal</Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+
+        <p className="mt-6 text-center text-sm text-muted-foreground">
+          <Link to="/auth/login" className="underline underline-offset-4">
+            Go to sign in
+          </Link>
+        </p>
+      </div>
+    </main>
   );
 }

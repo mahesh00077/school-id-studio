@@ -10,33 +10,232 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OwnerRouteImport } from './routes/owner'
+import { Route as SchoolRouteImport } from './routes/school'
+import { Route as AuthLoginRouteImport } from './routes/auth.login'
+import { Route as OwnerCreditsRouteImport } from './routes/owner.credits'
+import { Route as OwnerDashboardRouteImport } from './routes/owner.dashboard'
+import { Route as OwnerDesignsRouteImport } from './routes/owner.designs'
+import { Route as OwnerHistoryRouteImport } from './routes/owner.history'
+import { Route as OwnerSchoolsRouteImport } from './routes/owner.schools'
+import { Route as OwnerSettingsRouteImport } from './routes/owner.settings'
+import { Route as OwnerUsersRouteImport } from './routes/owner.users'
+import { Route as SchoolDashboardRouteImport } from './routes/school.dashboard'
+import { Route as SchoolDesignsRouteImport } from './routes/school.designs'
+import { Route as SchoolHistoryRouteImport } from './routes/school.history'
+import { Route as SchoolUsersRouteImport } from './routes/school.users'
+import { Route as SchoolIdCardsIndexRouteImport } from './routes/school.id-cards.index'
+import { Route as SchoolIdCardsCreateRouteImport } from './routes/school.id-cards.create'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OwnerRoute = OwnerRouteImport.update({
+  id: '/owner',
+  path: '/owner',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SchoolRoute = SchoolRouteImport.update({
+  id: '/school',
+  path: '/school',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OwnerCreditsRoute = OwnerCreditsRouteImport.update({
+  id: '/credits',
+  path: '/credits',
+  getParentRoute: () => OwnerRoute,
+} as any)
+const OwnerDashboardRoute = OwnerDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => OwnerRoute,
+} as any)
+const OwnerDesignsRoute = OwnerDesignsRouteImport.update({
+  id: '/designs',
+  path: '/designs',
+  getParentRoute: () => OwnerRoute,
+} as any)
+const OwnerHistoryRoute = OwnerHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => OwnerRoute,
+} as any)
+const OwnerSchoolsRoute = OwnerSchoolsRouteImport.update({
+  id: '/schools',
+  path: '/schools',
+  getParentRoute: () => OwnerRoute,
+} as any)
+const OwnerSettingsRoute = OwnerSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => OwnerRoute,
+} as any)
+const OwnerUsersRoute = OwnerUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => OwnerRoute,
+} as any)
+const SchoolDashboardRoute = SchoolDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => SchoolRoute,
+} as any)
+const SchoolDesignsRoute = SchoolDesignsRouteImport.update({
+  id: '/designs',
+  path: '/designs',
+  getParentRoute: () => SchoolRoute,
+} as any)
+const SchoolHistoryRoute = SchoolHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => SchoolRoute,
+} as any)
+const SchoolUsersRoute = SchoolUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => SchoolRoute,
+} as any)
+const SchoolIdCardsIndexRoute = SchoolIdCardsIndexRouteImport.update({
+  id: '/id-cards/',
+  path: '/id-cards/',
+  getParentRoute: () => SchoolRoute,
+} as any)
+const SchoolIdCardsCreateRoute = SchoolIdCardsCreateRouteImport.update({
+  id: '/id-cards/create',
+  path: '/id-cards/create',
+  getParentRoute: () => SchoolRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/owner': typeof OwnerRouteWithChildren
+  '/school': typeof SchoolRouteWithChildren
+  '/auth/login': typeof AuthLoginRoute
+  '/owner/credits': typeof OwnerCreditsRoute
+  '/owner/dashboard': typeof OwnerDashboardRoute
+  '/owner/designs': typeof OwnerDesignsRoute
+  '/owner/history': typeof OwnerHistoryRoute
+  '/owner/schools': typeof OwnerSchoolsRoute
+  '/owner/settings': typeof OwnerSettingsRoute
+  '/owner/users': typeof OwnerUsersRoute
+  '/school/dashboard': typeof SchoolDashboardRoute
+  '/school/designs': typeof SchoolDesignsRoute
+  '/school/history': typeof SchoolHistoryRoute
+  '/school/users': typeof SchoolUsersRoute
+  '/school/id-cards/create': typeof SchoolIdCardsCreateRoute
+  '/school/id-cards/': typeof SchoolIdCardsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/owner': typeof OwnerRouteWithChildren
+  '/school': typeof SchoolRouteWithChildren
+  '/auth/login': typeof AuthLoginRoute
+  '/owner/credits': typeof OwnerCreditsRoute
+  '/owner/dashboard': typeof OwnerDashboardRoute
+  '/owner/designs': typeof OwnerDesignsRoute
+  '/owner/history': typeof OwnerHistoryRoute
+  '/owner/schools': typeof OwnerSchoolsRoute
+  '/owner/settings': typeof OwnerSettingsRoute
+  '/owner/users': typeof OwnerUsersRoute
+  '/school/dashboard': typeof SchoolDashboardRoute
+  '/school/designs': typeof SchoolDesignsRoute
+  '/school/history': typeof SchoolHistoryRoute
+  '/school/users': typeof SchoolUsersRoute
+  '/school/id-cards/create': typeof SchoolIdCardsCreateRoute
+  '/school/id-cards': typeof SchoolIdCardsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/owner': typeof OwnerRouteWithChildren
+  '/school': typeof SchoolRouteWithChildren
+  '/auth/login': typeof AuthLoginRoute
+  '/owner/credits': typeof OwnerCreditsRoute
+  '/owner/dashboard': typeof OwnerDashboardRoute
+  '/owner/designs': typeof OwnerDesignsRoute
+  '/owner/history': typeof OwnerHistoryRoute
+  '/owner/schools': typeof OwnerSchoolsRoute
+  '/owner/settings': typeof OwnerSettingsRoute
+  '/owner/users': typeof OwnerUsersRoute
+  '/school/dashboard': typeof SchoolDashboardRoute
+  '/school/designs': typeof SchoolDesignsRoute
+  '/school/history': typeof SchoolHistoryRoute
+  '/school/users': typeof SchoolUsersRoute
+  '/school/id-cards/create': typeof SchoolIdCardsCreateRoute
+  '/school/id-cards/': typeof SchoolIdCardsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/owner'
+    | '/school'
+    | '/auth/login'
+    | '/owner/credits'
+    | '/owner/dashboard'
+    | '/owner/designs'
+    | '/owner/history'
+    | '/owner/schools'
+    | '/owner/settings'
+    | '/owner/users'
+    | '/school/dashboard'
+    | '/school/designs'
+    | '/school/history'
+    | '/school/users'
+    | '/school/id-cards/create'
+    | '/school/id-cards/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/owner'
+    | '/school'
+    | '/auth/login'
+    | '/owner/credits'
+    | '/owner/dashboard'
+    | '/owner/designs'
+    | '/owner/history'
+    | '/owner/schools'
+    | '/owner/settings'
+    | '/owner/users'
+    | '/school/dashboard'
+    | '/school/designs'
+    | '/school/history'
+    | '/school/users'
+    | '/school/id-cards/create'
+    | '/school/id-cards'
+  id:
+    | '__root__'
+    | '/'
+    | '/owner'
+    | '/school'
+    | '/auth/login'
+    | '/owner/credits'
+    | '/owner/dashboard'
+    | '/owner/designs'
+    | '/owner/history'
+    | '/owner/schools'
+    | '/owner/settings'
+    | '/owner/users'
+    | '/school/dashboard'
+    | '/school/designs'
+    | '/school/history'
+    | '/school/users'
+    | '/school/id-cards/create'
+    | '/school/id-cards/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  OwnerRoute: typeof OwnerRouteWithChildren
+  SchoolRoute: typeof SchoolRouteWithChildren
+  AuthLoginRoute: typeof AuthLoginRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +247,169 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/owner': {
+      id: '/owner'
+      path: '/owner'
+      fullPath: '/owner'
+      preLoaderRoute: typeof OwnerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/school': {
+      id: '/school'
+      path: '/school'
+      fullPath: '/school'
+      preLoaderRoute: typeof SchoolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/owner/credits': {
+      id: '/owner/credits'
+      path: '/credits'
+      fullPath: '/owner/credits'
+      preLoaderRoute: typeof OwnerCreditsRouteImport
+      parentRoute: typeof OwnerRoute
+    }
+    '/owner/dashboard': {
+      id: '/owner/dashboard'
+      path: '/dashboard'
+      fullPath: '/owner/dashboard'
+      preLoaderRoute: typeof OwnerDashboardRouteImport
+      parentRoute: typeof OwnerRoute
+    }
+    '/owner/designs': {
+      id: '/owner/designs'
+      path: '/designs'
+      fullPath: '/owner/designs'
+      preLoaderRoute: typeof OwnerDesignsRouteImport
+      parentRoute: typeof OwnerRoute
+    }
+    '/owner/history': {
+      id: '/owner/history'
+      path: '/history'
+      fullPath: '/owner/history'
+      preLoaderRoute: typeof OwnerHistoryRouteImport
+      parentRoute: typeof OwnerRoute
+    }
+    '/owner/schools': {
+      id: '/owner/schools'
+      path: '/schools'
+      fullPath: '/owner/schools'
+      preLoaderRoute: typeof OwnerSchoolsRouteImport
+      parentRoute: typeof OwnerRoute
+    }
+    '/owner/settings': {
+      id: '/owner/settings'
+      path: '/settings'
+      fullPath: '/owner/settings'
+      preLoaderRoute: typeof OwnerSettingsRouteImport
+      parentRoute: typeof OwnerRoute
+    }
+    '/owner/users': {
+      id: '/owner/users'
+      path: '/users'
+      fullPath: '/owner/users'
+      preLoaderRoute: typeof OwnerUsersRouteImport
+      parentRoute: typeof OwnerRoute
+    }
+    '/school/dashboard': {
+      id: '/school/dashboard'
+      path: '/dashboard'
+      fullPath: '/school/dashboard'
+      preLoaderRoute: typeof SchoolDashboardRouteImport
+      parentRoute: typeof SchoolRoute
+    }
+    '/school/designs': {
+      id: '/school/designs'
+      path: '/designs'
+      fullPath: '/school/designs'
+      preLoaderRoute: typeof SchoolDesignsRouteImport
+      parentRoute: typeof SchoolRoute
+    }
+    '/school/history': {
+      id: '/school/history'
+      path: '/history'
+      fullPath: '/school/history'
+      preLoaderRoute: typeof SchoolHistoryRouteImport
+      parentRoute: typeof SchoolRoute
+    }
+    '/school/users': {
+      id: '/school/users'
+      path: '/users'
+      fullPath: '/school/users'
+      preLoaderRoute: typeof SchoolUsersRouteImport
+      parentRoute: typeof SchoolRoute
+    }
+    '/school/id-cards/': {
+      id: '/school/id-cards/'
+      path: '/id-cards'
+      fullPath: '/school/id-cards/'
+      preLoaderRoute: typeof SchoolIdCardsIndexRouteImport
+      parentRoute: typeof SchoolRoute
+    }
+    '/school/id-cards/create': {
+      id: '/school/id-cards/create'
+      path: '/id-cards/create'
+      fullPath: '/school/id-cards/create'
+      preLoaderRoute: typeof SchoolIdCardsCreateRouteImport
+      parentRoute: typeof SchoolRoute
+    }
   }
 }
 
+interface OwnerRouteChildren {
+  OwnerCreditsRoute: typeof OwnerCreditsRoute
+  OwnerDashboardRoute: typeof OwnerDashboardRoute
+  OwnerDesignsRoute: typeof OwnerDesignsRoute
+  OwnerHistoryRoute: typeof OwnerHistoryRoute
+  OwnerSchoolsRoute: typeof OwnerSchoolsRoute
+  OwnerSettingsRoute: typeof OwnerSettingsRoute
+  OwnerUsersRoute: typeof OwnerUsersRoute
+}
+
+const OwnerRouteChildren: OwnerRouteChildren = {
+  OwnerCreditsRoute: OwnerCreditsRoute,
+  OwnerDashboardRoute: OwnerDashboardRoute,
+  OwnerDesignsRoute: OwnerDesignsRoute,
+  OwnerHistoryRoute: OwnerHistoryRoute,
+  OwnerSchoolsRoute: OwnerSchoolsRoute,
+  OwnerSettingsRoute: OwnerSettingsRoute,
+  OwnerUsersRoute: OwnerUsersRoute,
+}
+
+const OwnerRouteWithChildren = OwnerRoute._addFileChildren(OwnerRouteChildren)
+
+interface SchoolRouteChildren {
+  SchoolDashboardRoute: typeof SchoolDashboardRoute
+  SchoolDesignsRoute: typeof SchoolDesignsRoute
+  SchoolHistoryRoute: typeof SchoolHistoryRoute
+  SchoolUsersRoute: typeof SchoolUsersRoute
+  SchoolIdCardsCreateRoute: typeof SchoolIdCardsCreateRoute
+  SchoolIdCardsIndexRoute: typeof SchoolIdCardsIndexRoute
+}
+
+const SchoolRouteChildren: SchoolRouteChildren = {
+  SchoolDashboardRoute: SchoolDashboardRoute,
+  SchoolDesignsRoute: SchoolDesignsRoute,
+  SchoolHistoryRoute: SchoolHistoryRoute,
+  SchoolUsersRoute: SchoolUsersRoute,
+  SchoolIdCardsCreateRoute: SchoolIdCardsCreateRoute,
+  SchoolIdCardsIndexRoute: SchoolIdCardsIndexRoute,
+}
+
+const SchoolRouteWithChildren =
+  SchoolRoute._addFileChildren(SchoolRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  OwnerRoute: OwnerRouteWithChildren,
+  SchoolRoute: SchoolRouteWithChildren,
+  AuthLoginRoute: AuthLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
