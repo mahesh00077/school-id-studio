@@ -20,7 +20,7 @@ function RouteComponent() {
   );
 }
 
-export const Route = createFileRoute("/school/id-cards")({
+export const Route = createFileRoute("/school/id-cards/")({
   head: () => ({
     meta: [
       { title: "ID Cards — IDSuite School Portal" },
