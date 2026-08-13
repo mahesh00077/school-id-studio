@@ -1,8 +1,8 @@
 import { Outlet, createFileRoute } from "@tanstack/react-router";
 
+import { RequireAuth } from "@/components/auth/RequireAuth";
 import { PortalLayout } from "@/components/layouts/PortalLayout";
 import { OWNER_NAV } from "@/components/layouts/nav-config";
-import { SessionProvider } from "@/hooks/useSession";
 
 export const Route = createFileRoute("/owner")({
   component: OwnerLayout,
@@ -10,10 +10,10 @@ export const Route = createFileRoute("/owner")({
 
 function OwnerLayout() {
   return (
-    <SessionProvider initialRole="OWNER">
+    <RequireAuth roles={["OWNER"]}>
       <PortalLayout title="Owner portal" nav={OWNER_NAV}>
         <Outlet />
       </PortalLayout>
-    </SessionProvider>
+    </RequireAuth>
   );
 }
