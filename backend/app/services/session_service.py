@@ -19,7 +19,7 @@ from sqlalchemy.orm import Session as DBSession
 from app.models.session import Session
 from app.models.user import User
 
-SESSION_COOKIE_NAME = "session"
+SESSION_COOKIE_NAME = "school_id_session"
 SESSION_TTL_DAYS = 7
 TOKEN_BYTES = 32
 
