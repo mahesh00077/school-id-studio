@@ -27,7 +27,7 @@ function Index() {
         <div className="mb-8 text-center">
           <span className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
             <ShieldCheck className="size-3.5 text-primary" />
-            Frontend foundation · FastAPI backend coming next
+            Secure sign-in · FastAPI session authentication
           </span>
           <h1 className="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
             School Photo ID Card Management System
@@ -46,7 +46,7 @@ function Index() {
                 Schools, users, designs, credits, history and platform settings.
               </p>
               <Button asChild className="mt-4 w-full">
-                <Link to="/owner/dashboard">Open owner portal</Link>
+                <Link to="/auth/login">Sign in to owner portal</Link>
               </Button>
             </CardContent>
           </Card>
@@ -59,7 +59,7 @@ function Index() {
                 Credits, assigned designs, ID card generation and history.
               </p>
               <Button asChild className="mt-4 w-full">
-                <Link to="/school/dashboard">Open school portal</Link>
+                <Link to="/auth/login">Sign in to school portal</Link>
               </Button>
             </CardContent>
           </Card>

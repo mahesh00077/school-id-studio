@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as OwnerRouteImport } from './routes/owner'
 import { Route as SchoolRouteImport } from './routes/school'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
@@ -30,6 +31,11 @@ import { Route as SchoolIdCardsCreateRouteImport } from './routes/school.id-card
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OwnerRoute = OwnerRouteImport.update({
@@ -115,6 +121,7 @@ const SchoolIdCardsCreateRoute = SchoolIdCardsCreateRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/owner': typeof OwnerRouteWithChildren
   '/school': typeof SchoolRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
@@ -134,6 +141,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/owner': typeof OwnerRouteWithChildren
   '/school': typeof SchoolRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
@@ -154,6 +162,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/owner': typeof OwnerRouteWithChildren
   '/school': typeof SchoolRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
@@ -175,6 +184,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/login'
     | '/owner'
     | '/school'
     | '/auth/login'
@@ -194,6 +204,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/login'
     | '/owner'
     | '/school'
     | '/auth/login'
@@ -213,6 +224,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/login'
     | '/owner'
     | '/school'
     | '/auth/login'
@@ -233,6 +245,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LoginRoute: typeof LoginRoute
   OwnerRoute: typeof OwnerRouteWithChildren
   SchoolRoute: typeof SchoolRouteWithChildren
   AuthLoginRoute: typeof AuthLoginRoute
@@ -245,6 +258,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/owner': {
@@ -407,6 +427,7 @@ const SchoolRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LoginRoute: LoginRoute,
   OwnerRoute: OwnerRouteWithChildren,
   SchoolRoute: SchoolRouteWithChildren,
   AuthLoginRoute: AuthLoginRoute,
