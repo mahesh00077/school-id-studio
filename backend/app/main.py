@@ -22,3 +22,4 @@ app.add_middleware(
 
 app.include_router(health_router, prefix="/api")
 app.include_router(auth_router, prefix="/api")
+app.include_router(schools_router, prefix="/api/owner")
