@@ -1,77 +1,65 @@
 /**
- * Session context — backed by the FastAPI cookie session.
+ * Session context — preview placeholder.
  *
- * The authenticated user is always the one returned by GET /api/auth/me.
- * No mock users, no role selection, no token in JS-accessible storage.
+ * Real authentication will be issued by FastAPI via httpOnly cookies in a
+ * later phase. Until then, a fixed preview user is shown per portal so the UI
+ * shell can be developed. No role switching is exposed; the role shown is
+ * determined by the portal layout (owner vs. school), not by user action.
+ *
+ * Nothing sensitive is persisted to localStorage.
  */
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { createContext, useContext, useMemo, type ReactNode } from "react";
 
-import { ApiError } from "@/services/api";
-import { fetchMe, logoutRequest, type AuthUser } from "@/services/auth";
-import { UNAUTHORIZED_EVENT } from "@/services/api";
+import type { Role } from "@/types";
+
+export interface SessionUser {
+  name: string;
+  email: string;
+  role: Role;
+  schoolName: string | null;
+}
 
 interface SessionContextValue {
-  user: AuthUser | null;
-  loading: boolean;
-  isAuthenticated: boolean;
-  logout: () => Promise<void>;
-  refreshSession: () => Promise<void>;
+  user: SessionUser;
+  isOwner: boolean;
+  isSchoolAdmin: boolean;
+  isSchoolStaff: boolean;
 }
+
+const PREVIEW_OWNER: SessionUser = {
+  name: "Preview Owner",
+  email: "owner@preview.local",
+  role: "OWNER",
+  schoolName: null,
+};
+
+const PREVIEW_SCHOOL_ADMIN: SessionUser = {
+  name: "Preview School Admin",
+  email: "school-admin@preview.local",
+  role: "SCHOOL_ADMIN",
+  schoolName: "Preview School",
+};
 
 const SessionContext = createContext<SessionContextValue | null>(null);
 
-export function SessionProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<AuthUser | null>(null);
-  const [loading, setLoading] = useState(true);
-  const inFlight = useRef(false);
-
-  const refreshSession = useCallback(async () => {
-    if (inFlight.current) return;
-    inFlight.current = true;
-    setLoading(true);
-    try {
-      const me = await fetchMe();
-      setUser(me);
-    } catch (error) {
-      // 401 (or any failure) simply means "not authenticated". Never retry.
-      if (!(error instanceof ApiError)) console.error(error);
-      setUser(null);
-    } finally {
-      inFlight.current = false;
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    void refreshSession();
-  }, [refreshSession]);
-
-  // Any protected request that returns 401 drops the frontend session.
-  useEffect(() => {
-    const onUnauthorized = () => setUser(null);
-    window.addEventListener(UNAUTHORIZED_EVENT, onUnauthorized);
-    return () => window.removeEventListener(UNAUTHORIZED_EVENT, onUnauthorized);
-  }, []);
-
-  const logout = useCallback(async () => {
-    try {
-      await logoutRequest();
-    } catch {
-      // Backend owns the cookie; clearing local state is still correct.
-    }
-    setUser(null);
-  }, []);
+export function SessionProvider({
+  children,
+  initialRole = "OWNER",
+}: {
+  children: ReactNode;
+  initialRole?: Role;
+}) {
+  const user = initialRole === "OWNER" ? PREVIEW_OWNER : PREVIEW_SCHOOL_ADMIN;
 
   const value = useMemo<SessionContextValue>(
     () => ({
       user,
-      loading,
-      isAuthenticated: user !== null,
-      logout,
-      refreshSession,
+      isOwner: user.role === "OWNER",
+      isSchoolAdmin: user.role === "SCHOOL_ADMIN",
+      isSchoolStaff: user.role === "SCHOOL_STAFF",
     }),
-    [user, loading, logout, refreshSession],
+    [user],
   );
 
   return <SessionContext.Provider value={value}>{children}</SessionContext.Provider>;

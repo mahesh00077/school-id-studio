@@ -1,13 +1,14 @@
-import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { LogOut, Menu, ShieldCheck, X } from "lucide-react";
+import { Link, useRouterState } from "@tanstack/react-router";
+import { Menu, ShieldCheck, X } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { useSession } from "@/hooks/useSession";
 import { cn } from "@/lib/utils";
-import { ROLE_LABELS, initials } from "@/utils/format";
+import { initials } from "@/utils/format";
 import type { NavItem } from "./nav-config";
 
 interface PortalLayoutProps {
@@ -17,8 +18,7 @@ interface PortalLayoutProps {
 }
 
 export function PortalLayout({ title, nav, children }: PortalLayoutProps) {
-  const { user, logout } = useSession();
-  const navigate = useNavigate();
+  const { user } = useSession();
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
@@ -26,13 +26,7 @@ export function PortalLayout({ title, nav, children }: PortalLayoutProps) {
     setOpen(false);
   }, [pathname]);
 
-  async function handleSignOut() {
-    await logout();
-    await navigate({ to: "/auth/login", replace: true });
-  }
-
   const visibleNav = nav;
-
 
   return (
     <div className="min-h-screen bg-background">
@@ -89,23 +83,14 @@ export function PortalLayout({ title, nav, children }: PortalLayoutProps) {
           <div className="flex items-center gap-3">
             <Avatar className="size-8">
               <AvatarFallback className="bg-sidebar-accent text-xs text-sidebar-accent-foreground">
-                {initials(user?.name ?? "")}
+                {initials(user.name)}
               </AvatarFallback>
             </Avatar>
             <div className="min-w-0">
-              <p className="truncate text-sm font-medium">{user?.name}</p>
-              <p className="truncate text-xs text-sidebar-foreground/60">{user?.email}</p>
+              <p className="truncate text-sm font-medium">{user.name}</p>
+              <p className="truncate text-xs text-sidebar-foreground/60">{user.email}</p>
             </div>
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="mt-3 w-full justify-start text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-            onClick={handleSignOut}
-          >
-            <LogOut className="size-4" />
-            Sign out
-          </Button>
         </div>
       </aside>
 
@@ -124,17 +109,16 @@ export function PortalLayout({ title, nav, children }: PortalLayoutProps) {
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold">{title}</p>
             <p className="hidden truncate text-xs text-muted-foreground sm:block">
-              {user?.school_id ? `School #${user.school_id}` : "Platform administration"}
+              {user.schoolName ?? "Platform administration"}
             </p>
           </div>
 
           <div className="ml-auto flex items-center gap-2 sm:gap-3">
-            {user ? (
-              <Badge variant="outline">{ROLE_LABELS[user.role] ?? user.role}</Badge>
-            ) : null}
+            <Badge variant="outline" className="border-amber-300 bg-amber-50 text-amber-900">
+              Authentication is not implemented yet
+            </Badge>
           </div>
         </header>
-
 
         <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:py-8">{children}</main>
       </div>

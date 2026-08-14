@@ -1,20 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { RequireAuth } from "@/components/auth/RequireAuth";
 import { UsersTablePage } from "@/pages/shared/UsersTablePage";
 
 function RouteComponent() {
   return (
-    <RequireAuth roles={["SCHOOL_ADMIN"]}>
-      <UsersTablePage
-        title="School users"
-        description="Admins and staff who can access this school portal."
-        schoolId="sch_001"
-      />
-    </RequireAuth>
+    <UsersTablePage
+      title="School users"
+      description="Admins and staff who can access this school portal."
+      schoolId="sch_001"
+    />
   );
 }
-
 
 export const Route = createFileRoute("/school/users")({
   head: () => ({

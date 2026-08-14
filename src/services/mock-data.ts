@@ -12,53 +12,9 @@ import type {
   CreditTransaction,
   IdCard,
   OwnerStats,
-  School,
   SchoolStats,
   User,
 } from "@/types";
-
-export const MOCK_SCHOOLS: School[] = [
-  {
-    id: "sch_001",
-    name: "Greenwood International School",
-    code: "GWIS",
-    city: "Pune",
-    status: "ACTIVE",
-    credits: 1240,
-    studentsCount: 1860,
-    createdAt: "2025-06-14",
-  },
-  {
-    id: "sch_002",
-    name: "St. Xavier High School",
-    code: "SXHS",
-    city: "Mumbai",
-    status: "ACTIVE",
-    credits: 380,
-    studentsCount: 940,
-    createdAt: "2025-08-02",
-  },
-  {
-    id: "sch_003",
-    name: "Sunrise Public School",
-    code: "SRPS",
-    city: "Nagpur",
-    status: "INACTIVE",
-    credits: 0,
-    studentsCount: 620,
-    createdAt: "2025-11-21",
-  },
-  {
-    id: "sch_004",
-    name: "Delhi Model Academy",
-    code: "DMAC",
-    city: "New Delhi",
-    status: "ACTIVE",
-    credits: 2150,
-    studentsCount: 2480,
-    createdAt: "2026-01-09",
-  },
-];
 
 export const MOCK_USERS: User[] = [
   {

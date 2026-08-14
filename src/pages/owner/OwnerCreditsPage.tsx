@@ -42,8 +42,6 @@ export function OwnerCreditsPage() {
     queryFn: () => creditsService.listTransactions(),
   });
 
-  const totalCredits = (schools.data ?? []).reduce((sum, school) => sum + school.credits, 0);
-
   return (
     <>
       <PageHeader
@@ -80,7 +78,7 @@ export function OwnerCreditsPage() {
                     </SelectTrigger>
                     <SelectContent>
                       {(schools.data ?? []).map((school) => (
-                        <SelectItem key={school.id} value={school.id}>
+                        <SelectItem key={school.id} value={String(school.id)}>
                           {school.name}
                         </SelectItem>
                       ))}
@@ -101,9 +99,7 @@ export function OwnerCreditsPage() {
       />
       <MockDataNotice />
 
-      <div className="grid gap-4 sm:grid-cols-3">
-        <StatCard label="Credits across platform" value={formatNumber(totalCredits)} />
-        <StatCard label="Schools with credits" value={(schools.data ?? []).filter((s) => s.credits > 0).length} />
+      <div className="grid gap-4 sm:grid-cols-1">
         <StatCard label="Ledger entries" value={(transactions.data ?? []).length} />
       </div>
 
