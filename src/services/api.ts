@@ -25,11 +25,7 @@ export class ApiError extends Error {
   }
 }
 
-/** Dispatched whenever a request returns 401 so the session can be dropped. */
-export const UNAUTHORIZED_EVENT = "app:unauthorized";
-
 type Query = Record<string, string | number | boolean | undefined | null>;
-
 
 export interface RequestOptions {
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
@@ -83,15 +79,10 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
   const payload = isJson ? await response.json().catch(() => null) : null;
 
   if (!response.ok) {
-    if (response.status === 401 && typeof window !== "undefined") {
-      // Notify the session provider; it clears state without retrying.
-      window.dispatchEvent(new Event(UNAUTHORIZED_EVENT));
-    }
     const message =
       (payload as { detail?: string } | null)?.detail ?? `Request failed (${response.status})`;
     throw new ApiError(message, response.status, payload);
   }
-
 
   return payload as T;
 }
