@@ -14,7 +14,6 @@ import {
   MOCK_ID_CARDS,
   MOCK_OWNER_ACTIVITY,
   MOCK_OWNER_STATS,
-  MOCK_SCHOOLS,
   MOCK_SCHOOL_ACTIVITY,
   MOCK_SCHOOL_STATS,
   MOCK_USERS,
@@ -45,14 +44,10 @@ export const ownerService = {
 };
 
 export const schoolsService = {
-  list: () => withFallback<School[]>(() => api.get("/schools"), MOCK_SCHOOLS),
-  get: (id: string) =>
-    withFallback<School | undefined>(
-      () => api.get(`/schools/${id}`),
-      MOCK_SCHOOLS.find((s) => s.id === id),
-    ),
-  create: (payload: Partial<School>) => api.post<School>("/schools", payload),
-  update: (id: string, payload: Partial<School>) => api.patch<School>(`/schools/${id}`, payload),
+  list: () => api.get<School[]>("/schools"),
+  get: (id: number) => api.get<School>(`/schools/${id}`),
+  create: (payload: { name: string; code: string }) => api.post<School>("/schools", payload),
+  update: (id: number, payload: Partial<School>) => api.patch<School>(`/schools/${id}`, payload),
 };
 
 export const usersService = {
