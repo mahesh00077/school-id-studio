@@ -8,14 +8,10 @@ export type Role = "OWNER" | "SCHOOL_ADMIN" | "SCHOOL_STAFF";
 export type Status = "ACTIVE" | "INACTIVE" | "SUSPENDED";
 
 export interface School {
-  id: string;
+  id: number;
   name: string;
   code: string;
-  city: string;
-  status: Status;
-  credits: number;
-  studentsCount: number;
-  createdAt: string;
+  is_active: boolean;
 }
 
 export interface User {

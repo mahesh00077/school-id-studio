@@ -45,14 +45,16 @@ export const ownerService = {
 };
 
 export const schoolsService = {
-  list: () => withFallback<School[]>(() => api.get("/schools"), MOCK_SCHOOLS),
-  get: (id: string) =>
-    withFallback<School | undefined>(
-      () => api.get(`/schools/${id}`),
-      MOCK_SCHOOLS.find((s) => s.id === id),
-    ),
-  create: (payload: Partial<School>) => api.post<School>("/schools", payload),
-  update: (id: string, payload: Partial<School>) => api.patch<School>(`/schools/${id}`, payload),
+  list: () => api.get<School[]>("/owner/schools"),
+
+  get: (id: number) =>
+    api.get<School>(`/owner/schools/${id}`),
+
+  create: (payload: Partial<School>) =>
+    api.post<School>("/owner/schools", payload),
+
+  update: (id: number, payload: Partial<School>) =>
+    api.patch<School>(`/owner/schools/${id}`, payload),
 };
 
 export const usersService = {

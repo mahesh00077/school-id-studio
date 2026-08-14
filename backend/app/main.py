@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.auth import router as auth_router
 from app.api.health import router as health_router
 from app.core.config import settings
+from app.api.owner_schools import router as owner_schools_router
 
 app = FastAPI(
     title="IDSuite API",
@@ -21,3 +22,4 @@ app.add_middleware(
 
 app.include_router(health_router, prefix="/api")
 app.include_router(auth_router, prefix="/api")
+app.include_router(owner_schools_router, prefix="/api")
